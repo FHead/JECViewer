@@ -437,12 +437,19 @@ function UpdateCurves()
       N = Item[0]["X"].length;
 
       var DataSeries = [];
+      var DataSeriesPlus = [];
+      var DataSeriesMinus = [];
       for(i = 0; i < N; i++)
       {
          if("EX" in Item[0])
             DataSeries.push([Item[0].X[i], Item[0].Y[i], Item[0].EX[i], Item[0].EX[i], 0, 0]);
          else
             DataSeries.push([Item[0].X[i], Item[0].Y[i], 0, 0, 0, 0]);
+
+         if("YPlus" in Item[0])
+            DataSeriesPlus.push([Item[0].X[i], Item[0].YPlus[i], 0, 0, 0, 0])
+         if("YMinus" in Item[0])
+            DataSeriesMinus.push([Item[0].X[i], Item[0].YMinus[i], 0, 0, 0, 0])
       }
 
       var Label = Version + "<br />"
@@ -455,6 +462,27 @@ function UpdateCurves()
                         shadowSize: 0,
                         label: Label,
                         data: DataSeries});
+      else if(Item[0]["Mode"] == "JERSF")
+      {
+         PlotData.push({color: DefaultColors[Index],
+                        lines: {show: true, lineWidth: 2, fill: false},
+                        points: {show: false},
+                        shadowSize: 0,
+                        label: Label,
+                        data: DataSeries});
+         PlotData.push({color: DefaultColors[Index],
+                        lines: {show: true, lineWidth: 1, fill: false},
+                        points: {show: false},
+                        shadowSize: 0,
+                        label: '',
+                        data: DataSeriesPlus});
+         PlotData.push({color: DefaultColors[Index],
+                        lines: {show: true, lineWidth: 1, fill: false},
+                        points: {show: false},
+                        shadowSize: 0,
+                        label: '',
+                        data: DataSeriesMinus});
+      }
       else if(Item[0]["Mode"] == "Step")
          PlotData.push({color: DefaultColors[Index],
                         lines: {show: false},
