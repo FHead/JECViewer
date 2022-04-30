@@ -398,6 +398,8 @@ function UpdateCurves()
 
    XY = GetXY();
 
+   console.log(XY);
+
    var PlotOption =
    {
       xaxis:     {axisLabel: XY.X, min: XY.XMin, max: XY.XMax,
@@ -486,7 +488,7 @@ function UpdateCurves()
                         data: DataSeries});
          PlotData.push({id: 'Plus' + Index,
                         color: DefaultColors[Index],
-                        lines: {show: true, lineWidth: 0, fill: 0.075},
+                        lines: {show: true, lineWidth: 0, fill: 0.05},
                         points: {show: false},
                         shadowSize: 0,
                         label: '',
@@ -494,7 +496,7 @@ function UpdateCurves()
                         fillBetween: 'Minus' + Index});
          PlotData.push({id: 'Minus' + Index,
                         color: DefaultColors[Index],
-                        lines: {show: true, lineWidth: 0, fill: 0.075},
+                        lines: {show: true, lineWidth: 0, fill: 0.05},
                         points: {show: false},
                         shadowSize: 0,
                         label: '',
