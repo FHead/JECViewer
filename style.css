@@ -1,0 +1,453 @@
+/* Global resets */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video
+{
+   margin: 0;
+   padding: 0;
+   border: 0;
+   font-size: 100%;
+   font: inherit;
+   vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+   display: block;
+}
+body {
+   line-height: 1;
+}
+ol, ul {
+   list-style: none;
+}
+blockquote, q {
+   quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+   content: '';
+   content: none;
+}
+table {
+   border-collapse: collapse;
+   border-spacing: 0;
+}
+
+/* border of the div to see things better during development */
+
+div
+{
+   // border: 1px solid #000;
+}
+
+/* Real styles below */
+
+html
+{
+   height: 100%;
+}
+
+body
+{
+   font-family: Arial, sans-serif;
+   font-size: 13.5px;
+   min-height: 98.5%;
+   height: 98.5%;
+   font-weight: light;
+}
+
+div
+{
+   box-sizing: border-box;
+}
+
+div#Page
+{
+   font-family: "Rubik", Arial, sans-serif;
+   width: 1200px;
+   margin-left: auto;
+   margin-right: auto;
+   min-height: 100%;
+   position: relative;
+}
+
+div#Title
+{
+   font-family: "Quicksand", Arial, sans-serif;
+   text-align: center;
+   width: 100%;
+   font-size: 2.5em;
+   margin-top: 0.5em;
+   margin-bottom: 0.5em;
+   font-weight: bold;
+}
+
+div#ChartDivContainer
+{
+   height: 700px;
+   width: 100%;
+   padding: 5px;
+   position: relative;
+}
+
+div#ChartDiv
+{
+   width: 100%;
+   height: 100%;
+   margin-left: auto;
+   margin-right: auto;
+   border: 1px solid #000000;
+   border-radius: 10px;
+   padding: 5px;
+   cursor: crosshair;
+}
+
+div#ChartEmpty
+{
+   display: none;
+   width: 100%;
+   height: 100%;
+   border: 1px solid #000000;
+   text-align: center;
+   line-height: 700px;
+   font-size: 2em;
+   border-radius: 10px;
+}
+
+div.Selector
+{
+   width: 100%;
+   margin-top: 5px;
+   padding: 5px;
+   display: block;
+   font-size: 1em;
+   transition: 0.3s;
+}
+
+div#SelectorN
+{
+   margin-bottom: 1em;
+}
+
+.SelectorLine
+{
+   color: #BBB;
+}
+
+div.SelectorLeft
+{
+   display: inline-block;
+   left: 2.5em;
+   position: relative;
+   color: #AAA;
+}
+
+div.SelectorRight
+{
+   display: inline-block;
+   right: 1em;
+   position: absolute;
+}
+
+div.color
+{
+   display: inline-block;
+   width: 1.5em;
+   height: 1.5em;
+   border: 1px solid;
+   cursor: pointer;
+   transition: 0.3s;
+   border-radius: 3px;
+   position: relative;
+}
+
+div.color.hide
+{
+   opacity: 0.3;
+}
+
+div.color.hide:before
+{
+   opacity: 1.0;
+   position: absolute;
+   left: 0em;
+   right: 0em;
+   top: 0em;
+   bottom: 0em;
+   line-height: 1.5em;
+   text-align: center;
+   content: '\002716';
+   color: #FFF;
+}
+
+div.entrylink
+{
+   display: inline-block;
+   width: 1.75em;
+   height: 1.75em;
+   cursor: pointer;
+   position: relative;
+   transition: 0.3s;
+   background: url(icons/external-link.svg);
+   background-size: contain;
+}
+
+div.entrylink.nolink
+{
+   opacity: 0.2;
+   cursor: default;
+}
+
+div.entrylink > a
+{
+   position: absolute;
+   left: 0em;
+   right: 0em;
+   top: 0em;
+   bottom: 0em;
+}
+
+div.entrylink.nolink > a
+{
+   cursor: default;
+   opacity: 0.5;
+   left: 100%;
+   right: 0em;
+   top: 100%;
+   bottom: 0em;
+}
+
+div.AlignRightButton
+{
+   display: inline-block;
+   margin-right: 0.5em;
+   margin-left: 0.5em;
+   width: 1em;
+   height: 1em;
+   line-height: 1em;
+   position: absolute;
+   top: 0em;
+   cursor: pointer;
+   margin-top: 0.1em;
+   transition: 0.3s;
+}
+
+div.AlignRightButton:hover, div.AlignRightButton:focus
+{
+   background-color: #EEF;
+}
+
+div#InfoButton
+{
+   left: 0em;
+   background: url(icons/info.svg);
+   background-size: contain;
+}
+
+div#InfoButton > a
+{
+   position: absolute;
+   left: 0em;
+   right: 0em;
+   top: 0em;
+   bottom: 0em;
+}
+
+div#DownloadButton
+{
+   right: 0em;
+   background: url(icons/download.svg);
+   background-size: contain;
+}
+
+div#ZoomOutButton
+{
+   right: 1.25em;
+   // background: url(icons/crosshair.svg);
+   // background: url(icons/globe.svg);
+   // background: url(icons/rotate-ccw.svg);
+   background: url(icons/zoom-out.svg);
+   background-size: contain;
+}
+
+select
+{
+   font-size: 1em;
+   padding: 3px;
+   margin: 0;
+   color: #000;
+   border-radius: 0px;
+   border: none;
+   border-bottom: 1.5px solid #000000;
+   outline: none;
+   display: inline-block;
+   -webkit-appearance: none;
+   -moz-appearance: none;
+   appearance: none;
+   cursor: pointer;
+   transition: 0.3s;
+   background-color: #FFF;
+   text-align: center;
+}
+
+tr.SelectorLine > td > select
+{
+   width: 100%;
+}
+
+select:hover, select:focus
+{
+   background-color: #EEF;
+}
+
+.tickLabel{ font-size: 1.5em; color: #008; }
+.axisLabels { font-size: 1.25em; color: #008; }
+.xaxisLabel { font-size: 1.25em; margin-top: 0.5em; color: #008; }
+.yaxisLabel { font-size: 1.25em; margin-left: -0.5em; color: #008; }
+
+div#Footer
+{
+   width: 100%;
+   text-align: center;
+   font-size: 0.8em;
+   position: relative;
+   margin-top: -2em;
+}
+
+div.ToggleBox
+{
+   display: inline-block;
+   width: 2.0em;
+   height: 2.0em;
+   line-height: 2.0em;
+   margin-right: 0.25em;
+   cursor: pointer;
+   transition: 0.3s;
+   border-radius: 5px;
+   margin-top: -0.5em;
+   font-weight: bold;
+   text-align: center;
+   border: 1px solid #000;
+   background-color: #F7F7F7;
+}
+
+div.ToggleBox:hover, div.ToggleBox:focus
+{
+   background-color: #DDF;
+}
+
+div.ToggleBox.On
+{
+   background-color: #CFC;
+}
+
+div.ToggleBox.On:hover, div.ToggleBox.On:focus
+{
+   background-color: #AFA;
+}
+
+div#LogX:before
+{
+   content: 'X';
+   position: relative;
+   font-size: 1.25em;
+   left: 0;
+   right: 0;
+   top: 0;
+   bottom: 0;
+   text-align: center;
+}
+
+div#LogY:before
+{
+   content: 'Y';
+   position: relative;
+   font-size: 1.25em;
+   left: 0;
+   right: 0;
+   top: 0;
+   bottom: 0;
+   text-align: center;
+}
+
+div#MouseLocation
+{
+   margin-right: 1em;
+   display: inline-block;
+   padding: 0.25em;
+   border-radius: 5px;
+   border: 1px solid #000;
+}
+
+div.SelectorTableContainer > table
+{
+   width: 100%;
+}
+
+td
+{
+   transition: 0.3s;
+   vertical-align: middle;
+   height: 2.75em;
+}
+
+tr.SelectorLine > td:nth-child(2n+1)
+{
+   padding-right: 1em;
+}
+
+tr.SelectorLine > td:nth-child(1)
+{
+   padding-right: 0.5em;
+}
+
+span.SelectorLabel
+{
+   font-size: 0.75em;
+   font-variant: small-caps;
+}
+
+table
+{
+   border-collapse: collapse;
+}
+
+div.Filler
+{
+   width: 100%;
+   height: 2.5em;
+}
+
+div.legend
+{
+   font-size: 1em;
+   pointer-events: none;
+}
+
+div.legend > table
+{
+   border-radius: 1em;
+   border-collapse: collapse;
+   overflow: hidden;
+   pointer-events: none;
+}
+
+td.legendLabel
+{
+   padding-right: 1.5em;
+   padding-left: 1em;
+}
