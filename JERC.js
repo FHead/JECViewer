@@ -4,6 +4,7 @@ var PlotData;
 var XY;
 var HashLockdown;
 var CurveUpdateLock;
+var UpdateCurveCheckLock = false;
 var LatestPosition;
 var PositionTimeout = null;
 var OldCurveCount = -1;
@@ -377,6 +378,7 @@ function UpdateCurves()
 {
    if(CurveUpdateLock == true)
       return;
+   CurveUpdateLock = true;
 
    // Set up plotting related stuff
 
@@ -398,8 +400,6 @@ function UpdateCurves()
 
    XY = GetXY();
 
-   console.log(XY);
-
    var PlotOption =
    {
       xaxis:     {axisLabel: XY.X, min: XY.XMin, max: XY.XMax,
@@ -408,7 +408,7 @@ function UpdateCurves()
          datamin: XY.DataYMin, datamax: XY.DataYMax, mode: XY.YMode},
       grid:      {margin: 25, hoverable: true, clickable: true,
          borderWidth: 1, borderColor: '#DDD', labelMargin: 10, axisMargin: 10,
-         backgroundColor: null, autoHighlight: false},
+         backgroundColor: '#FFF', autoHighlight: false},
       crosshair: {mode: "xy", color: "rgba(0,0,0,0.5)", lineWidth: 1},
       selection: {mode: "xy", color: "#FBF"}
    };
@@ -531,58 +531,97 @@ function UpdateCurves()
                         data: DataSeries});
    }
 
-   if(PlotData.length == 0 && OldPlotDataLength == 0)
+   if(PlotData.length == 0)
    {
-      $('#ChartDiv').stop().fadeOut(AnimationTime, function()
-      {
-         $('#ChartEmpty').stop().fadeIn(AnimationTime);
-      });
-      $('#ChartDiv').delay(AnimationTime - 1, function()
-      {
-         Plot = $.plot("#ChartDiv", PlotData, PlotOption);
-      });
+      PlotOption.grid.backgroundColor = null;
+      PlotOption.grid.clickable = false;
+      PlotOption.selection.mode = null;
    }
-   else if(PlotData.length == 0 && OldPlotDataLength > 0)
-   {
-      $('#ChartDiv').stop().fadeOut(AnimationTime, function()
-      {
-         $('#ChartEmpty').stop().fadeIn(AnimationTime);
-      });
-      $('#ChartDiv').delay(AnimationTime - 1, function()
-      {
-         Plot = $.plot("#ChartDiv", PlotData, PlotOption);
-      });
-   }
-   else if(OldPlotDataLength == 0 && PlotData.length > 0)
-   {
-      $('#ChartEmpty').stop().fadeOut(AnimationTime, function()
-      {
-         $('#ChartDiv').stop().fadeTo(1, 0.01, function()
-         {
-            Plot = $.plot("#ChartDiv", PlotData, PlotOption);
-         }).fadeTo(AnimationTime - 1, 1.00);
-      });
-   }
-   else
-   {
-      $('#ChartEmpty').stop().fadeOut(AnimationTime, function()
-      {
-         if($('#ChartDiv').css('display') == 'none')
-         {
-            $('#ChartDiv').stop().fadeTo(1, 0.01, function()
-            {
-               Plot = $.plot("#ChartDiv", PlotData, PlotOption);
-            }).fadeTo(AnimationTime - 1, 1.00);
-         }
-         else
-         {
-            Plot = $.plot("#ChartDiv", PlotData, PlotOption);
-            $('#ChartDiv').stop().fadeTo(AnimationTime, 1.00);
-         }
-      });
-   }
+   Plot = $.plot("#ChartDiv", PlotData, PlotOption);
+   
+   // if(PlotData.length == 0 && OldPlotDataLength == 0)
+   // {
+   //    $('#ChartDiv').stop().fadeOut(AnimationTime, function()
+   //    {
+   //       $('#ChartEmpty').stop().fadeIn(AnimationTime);
+   //    });
+   //    $('#ChartDiv').delay(AnimationTime - 1, function()
+   //    {
+   //       Plot = $.plot("#ChartDiv", PlotData, PlotOption);
+   //    });
+   // }
+   // else if(PlotData.length == 0 && OldPlotDataLength > 0)
+   // {
+   //    $('#ChartDiv').stop().fadeOut(AnimationTime, function()
+   //    {
+   //       $('#ChartEmpty').stop().fadeIn(AnimationTime);
+   //    });
+   //    $('#ChartDiv').delay(AnimationTime - 1, function()
+   //    {
+   //       Plot = $.plot("#ChartDiv", PlotData, PlotOption);
+   //    });
+   // }
+   // else if(OldPlotDataLength == 0 && PlotData.length > 0)
+   // {
+   //    $('#ChartEmpty').stop().fadeOut(AnimationTime, function()
+   //    {
+   //       $('#ChartDiv').stop().fadeTo(1, 0.01, function()
+   //       {
+   //          Plot = $.plot("#ChartDiv", PlotData, PlotOption);
+   //       }).fadeTo(AnimationTime - 1, 1.00);
+   //    });
+   // }
+   // else
+   // {
+   //    $('#ChartEmpty').stop().fadeOut(AnimationTime, function()
+   //    {
+   //       if($('#ChartDiv').css('display') == 'none')
+   //       {
+   //          $('#ChartDiv').stop().fadeTo(1, 0.01, function()
+   //          {
+   //             Plot = $.plot("#ChartDiv", PlotData, PlotOption);
+   //          }).fadeTo(AnimationTime - 1, 1.00);
+   //       }
+   //       else
+   //       {
+   //          Plot = $.plot("#ChartDiv", PlotData, PlotOption);
+   //          $('#ChartDiv').stop().fadeTo(AnimationTime, 1.00);
+   //       }
+   //    });
+   // }
 
    OldPlotDataLength = PlotData.length;
+
+   // Finally a check for problems, 1 second later 
+   // if(UpdateCurveCheckLock == false)
+   // {
+   //    UpdateCurveCheckLock = true;
+   //    setTimeout(function()
+   //    {
+   //       console.log(Date.now());
+   //       console.log('Checking!');
+   //       console.log(PlotData);
+   //       console.log($('#ChartDiv').css('display'))
+   //       console.log($('#ChartEmpty').css('display'))
+   //       console.log($('#ChartDiv').css('opacity'));
+   //       if(PlotData.length > 0)
+   //       {
+   //          if($('#ChartDiv').css('display') == 'none'
+   //             || $('#ChartEmpty').css('display') != 'none'
+   //             || parseFloat($('#ChartDiv').css('opacity')) < 1)
+   //          {
+   //             console.log('Oh?');
+   //             console.log(AnimationTime);
+   //             $('#ChartDiv').stop().fadeTo(AnimationTime, 1.00);
+   //             // $('#ChartEmpty').stop().delay(1).fadeTo(AnimationTime, 0);
+   //          }
+   //       }
+
+   //       UpdateCurveCheckLock = false;
+   //    }, 1500);
+   // }
+   
+   CurveUpdateLock = false;
 }
 
 function ResetRange()
@@ -821,6 +860,7 @@ function LoadFromHash(HashString)
    }
    
    CurveUpdateLock = false;
+   CurveUpdateCheckLock = false;
    
    ShowHideSelector();
    UpdateCurves();
@@ -868,6 +908,7 @@ function LoadDefaultSetup()
    $('#LogY').addClass("On");
 
    CurveUpdateLock = false;
+   CurveUpdateCheckLock = false;
    
    ShowHideSelector();
    UpdateCurves();
@@ -1072,6 +1113,8 @@ function Initialize()
          document.body.removeChild(canvas);
       });
    });
+   
+   $('#ChartDiv').fadeTo(AnimationTime, 1.00);
 }
 
 $(window).on('load', Initialize);
