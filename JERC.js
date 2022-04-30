@@ -283,14 +283,28 @@ function GetXY()
             if(Item[0].Y[i] > 0)
                if(Item[0].Y[i] < YMin)
                   YMin = Item[0].Y[i];
+            if("YMinus" in Item[0] && Item[0].YMinus[i] > 0)
+               if(Item[0].YMinus[i] < YMin)
+                  YMin = Item[0].YMinus[i];
+            if("YPlus" in Item[0] && Item[0].YPlus[i] > 0)
+               if(Item[0].YPlus[i] < YMin)
+                  YMin = Item[0].YPlus[i];
          }
          else
          {
             if(Item[0].Y[i] < YMin)
                YMin = Item[0].Y[i];
+            if("YMinus" in Item[0] && Item[0].YMinus[i] < YMin)
+               YMin = Item[0].YMinus[i];
+            if("YPlus" in Item[0] && Item[0].YPlus[i] < YMin)
+               YMin = Item[0].YPlus[i];
          }
          if(Item[0].Y[i] > YMax)
             YMax = Item[0].Y[i];
+         if("YPlus" in Item[0] && Item[0].YPlus[i] > YMax)
+            YMax = Item[0].YPlus[i];
+         if("YMinus" in Item[0] && Item[0].YMinus[i] > YMax)
+            YMax = Item[0].YMinus[i];
       }
    }
 
