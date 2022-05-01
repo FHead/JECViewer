@@ -1,3 +1,11 @@
+/////////////////////////////////////////////////
+// JERC.js                                     //
+//                                             //
+// Original author: Yi Chen (http://yichen.me) //
+//                                             //
+// Main control code for JECViewer V2.X        //
+/////////////////////////////////////////////////
+
 var Chart;
 var Plot;
 var PlotData;
