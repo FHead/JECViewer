@@ -1101,8 +1101,8 @@ function Initialize()
          y: $('#ChartDiv').offset().top
       }).then(canvas =>
       {
-         console.log(canvas);
-         console.log(canvas.getAttribute('width'));
+         // console.log(canvas);
+         // console.log(canvas.getAttribute('width'));
          
          // document.body.appendChild(canvas);
          
