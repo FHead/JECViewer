@@ -1,0 +1,55 @@
+<html>
+   <head>
+      <title>Update log and extra information</title>
+      <link rel="stylesheet" type="text/css" href="logstyle.css" />
+   </head>
+   <body>
+      <div id="Page">
+         <div class="title"><h1>Update log for <a href="index.html">JECViewer</a></h1></div>
+         <div class="container">
+            <h2>Basic information</h2>
+            <h3>Instructions</h3>
+            <p>Here are the instructions on all the features:</p>
+            <ul>
+               <li>Mouse left-button drag chooses an area to zoom in.</li>
+               <li>Right click to zoom out.  Or click the magnifying glass.</li>
+               <li>All underlined fields can be clicked and selected</li>
+               <li>Choose the "X" and "Y" in the bottom right of the plot to choose whether to do log scale.</li>
+               <li>The color box in the left of each line can be clicked: they hide curves on the plot.</li>
+               <li>Click on the download button to download plot as pdf.</li>
+               <li>The location of the cross hair (when you hover in the plot) is shown next to the log scale toggles.</li>
+            </ul>
+            <h3>Other information</h3>
+            <p>Now that data is pulled with ajax, there is no limit anymore on the number of versions available in the viewer!  Please tell Yi if you want new versions (or curves with different eta/PT/phi/...), and she will generate and add them to the viewer.</p>
+         </div>
+         <div class="container">
+            <h2>What will come soon?</h2>
+            <h3>Code feature wish list - no promises</h3>
+            <ul>
+               <li>Touch support for better phone/pad experience</li>
+               <li>Add a way to export raw data for further processing and beautification</li>
+               <li>Freeze axis range when clicking on "X" and "Y" log scale toggles.</li>
+               <li>Better hashing: set as much as possible instead of default to grand default for a tiny mistake</li>
+            </ul>
+            <h3>Known issues</h3>
+            <ul>
+               <li>PDF generation in some systems/browser combination shifted by small amount
+               (confirmed: Windows 11 Chrome and Edge).  This does not affect the functionality,
+               just the aesthetics.</li>
+            </ul>
+         </div>
+         <div class="container">
+            <h2>Apr 29-May 1, 2022</h2>
+            <h3>First &beta; version</h3>
+            <ul>
+               <li>Most basic functionalities are ported over</li>
+               <li>JSON-as-input implemented in the back end interactively</li>
+               <li>Data pulled via AJAX</li>
+               <li>PDF generation was screwed when pixel density ratio is not 1.  Now fixed.</li>
+            </ul>
+         </div>
+      </div>
+   </body>
+</html>
+
+
