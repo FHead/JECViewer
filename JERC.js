@@ -547,6 +547,8 @@ function UpdateCurves()
    }
    Plot = $.plot("#ChartDiv", PlotData, PlotOption);
    
+   $('#ChartEmpty').html('Nothing selected');
+
    // if(PlotData.length == 0 && OldPlotDataLength == 0)
    // {
    //    $('#ChartDiv').stop().fadeOut(AnimationTime, function()
@@ -868,7 +870,6 @@ function LoadFromHash(HashString)
    }
    
    CurveUpdateLock = false;
-   CurveUpdateCheckLock = false;
    
    ShowHideSelector();
    UpdateCurves();
@@ -916,7 +917,6 @@ function LoadDefaultSetup()
    $('#LogY').addClass("On");
 
    CurveUpdateLock = false;
-   CurveUpdateCheckLock = false;
    
    ShowHideSelector();
    UpdateCurves();
