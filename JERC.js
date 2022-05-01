@@ -360,14 +360,14 @@ function GetXY()
    for(i = 0; i < Xs.length; i++)
    {
       if(i != 0)
-         XLabel += ',';
+         XLabel += ', ';
       XLabel += Xs[i];
    }
    YLabel = '';
    for(i = 0; i < Ys.length; i++)
    {
       if(i != 0)
-         YLabel += ',';
+         YLabel += ', ';
       YLabel += Ys[i];
    }
 
@@ -1086,17 +1086,29 @@ function Initialize()
    $('#DownloadButton').click(function(e)
    {
       e.preventDefault();
-      html2canvas($('#ChartDiv')[0]).then(canvas =>
+      html2canvas($('#ChartDiv')[0],
       {
-         document.body.appendChild(canvas);
+         logging: true,
+         x: $('#ChartDiv').offset().left,
+         y: $('#ChartDiv').offset().top
+      }).then(canvas =>
+      {
+         console.log(canvas);
+         console.log(canvas.getAttribute('width'));
          
-         var Width = $('#ChartDiv').width() / 96.0;
-         var Height = $('#ChartDiv').height() / 96.0;
+         // document.body.appendChild(canvas);
+         
+         // var Width  = parseFloat(canvas.getAttribute('width'));
+         // var Height = parseFloat(canvas.getAttribute('height'));
+         var Width  = parseFloat(canvas.style.width);
+         var Height = parseFloat(canvas.style.height);
+
+         var Scale = window.devicePixelRatio / 96.0;
          var PdfFile = new jsPDF(
          {
             orientation: 'landscape',
             unit: 'in',
-            format: [Width, Height],
+            format: [Width * Scale, Height * Scale],
             compressPdf: true
          });
          PdfFile.addImage(
@@ -1104,13 +1116,13 @@ function Initialize()
             imageData: canvas.toDataURL("image/png"),
             x: 0,
             y: 0,
-            compression: 'SLOW',
-            scrollX: 0,
-            scrollY: 0
+            width: Width * Scale,
+            height: Height * Scale,
+            compression: 'SLOW'
          });
          PdfFile.save('JECChart--' + BuildFileName() + '.pdf');
 
-         document.body.removeChild(canvas);
+         // document.body.removeChild(canvas);
       });
    });
    
