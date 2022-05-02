@@ -469,3 +469,15 @@ span.JERSpan
 {
    color: #9DF;
 }
+
+div#ChartOverlay
+{
+   display: inline;
+   position: absolute;
+   right: 25px;
+   top: 10px;
+   font-size: 1.0em;
+   font-weight: light;
+   opacity: 0.75;
+   pointer-events: none;
+}

@@ -571,6 +571,7 @@ function UpdateCurves()
       PlotOption.selection.mode = null;
    }
    Plot = $.plot("#ChartDiv", PlotData, PlotOption);
+   $('#ChartDiv').append('<div id="ChartOverlay">CMS <span class="JECSpan">JEC</span>+<span class="JERSpan">JER</span> Viewer</div>');
    
    $('#ChartEmpty').html('Nothing selected');
 
