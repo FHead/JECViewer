@@ -454,3 +454,18 @@ td.legendLabel
    padding-right: 1.5em;
    padding-left: 1em;
 }
+
+td.legendLabel
+{
+   opacity: 0.5;
+}
+
+span.JECSpan
+{
+   color: #F99;
+}
+
+span.JERSpan
+{
+   color: #99F;
+}
