@@ -439,7 +439,7 @@ function UpdateCurves()
          datamin: XY.DataXMin, datamax: XY.DataXMax, mode: XY.XMode},
       yaxis:     {axisLabel: XY.Y, min: XY.YMin, max: XY.YMax,
          datamin: XY.DataYMin, datamax: XY.DataYMax, mode: XY.YMode},
-      grid:      {margin: 25, hoverable: true, clickable: true,
+      grid:      {margin: 25, hoverable: true, clickable: false,
          borderWidth: 1, borderColor: '#DDD', labelMargin: 10, axisMargin: 10,
          backgroundColor: '#FFF', autoHighlight: false},
       crosshair: {mode: "xy", color: "rgba(0,0,0,0.5)", lineWidth: 1},
@@ -572,6 +572,7 @@ function UpdateCurves()
    }
    Plot = $.plot("#ChartDiv", PlotData, PlotOption);
    $('#ChartDiv').append('<div id="ChartOverlay">CMS <span class="JECSpan">JEC</span>+<span class="JERSpan">JER</span> Viewer</div>');
+   $('#ChartDiv > canvas').on('click', function(e){e.preventDefault();});
    
    $('#ChartEmpty').html('Nothing selected');
 
@@ -1115,10 +1116,18 @@ function Initialize()
    $('#LogY').click(function(){$(this).toggleClass("On"); UpdateCurves(); UpdateHash();});
 
    $('#ChartDiv').bind("contextmenu", function(){ResetRange(); return false;});
-   $('#ZoomOutButton').click(function() {ResetRange();});
-
-   $('#DownloadButton').click(function(e)
+   $('#ZoomOutButton').on('click keydown', function(e)
    {
+      if(e.type == "keydown" && e.keyCode != 13)
+         return;
+      ResetRange();
+   });
+
+   $('#DownloadButton').on('click keydown', function(e)
+   {
+      if(e.type == "keydown" && e.keyCode != 13)
+         return;
+
       e.preventDefault();
       html2canvas($('#ChartDiv')[0],
       {
