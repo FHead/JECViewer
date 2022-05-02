@@ -23,12 +23,37 @@ var AvailableListLock;
 var AvailableList = [];
 var InProgressList = [];
 
+function SortLevel(List)
+{
+   var LevelOrdering = ['L1FastJet', 'L2Relative', 'L3Absolute', 'L1L2L3', 'L2Residual', 'L3Residual', 'L2L3Residual', 'L1L2L3L2L3Res', 'Uncertainty', 'L1RC', 'JERSF', 'PtResolution', 'EtaResolution', 'PhiResolution'];
+
+   List.sort(function(a, b)
+   {
+      var ia = LevelOrdering.indexOf(a);
+      var ib = LevelOrdering.indexOf(b);
+
+      // if both in list, sort using list
+      if(ia >= 0 && ib >= 0)
+         return ia - ib;
+      // if only one in list, the one in list goes first
+      if(ia >= 0 && ib < 0)
+         return -1;
+      if(ia < 0 && ib >= 0)
+         return 1;
+      // if none in list, sort using name
+      return a.localeCompare(b);
+   });
+}
+
 function UniqueValues(List, Field, Item)
 {
    var Values = [];
    for(Index in List)
       Values.push(List[Index][Field]);
    Results = Values.filter(function(value, index, self) {return self.indexOf(value) == index;}).sort();
+
+   if(Field == "Level")
+      SortLevel(Results);
 
    CurrentValue = Item.val();
 
