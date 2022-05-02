@@ -44,7 +44,7 @@ q:before, q:after {
 }
 table {
    border-collapse: collapse;
-   border-spacing: 0;
+   border-spacing: 0px;
 }
 
 
@@ -66,10 +66,10 @@ div#Page
    position: relative;
 }
 
-div.Title
+div.title
 {
-   width: 100%;
    text-align: center;
+   width: 100%;
    padding: 2em;
 }
 
@@ -99,17 +99,17 @@ ul
    margin-left: 3em;
 }
 
-div.Container
+div.container
 {
    width: 100%;
-   margin-top: 1em;
    padding: 2em;
-   border-radius: 12px;
+   margin-top: 1em;
    border: 1px solid #000;
+   border-radius: 10px;
    line-height: 1.5em;
 }
 
-div.Container > p
+div.container > p
 {
    margin-left: 1em;
 }
