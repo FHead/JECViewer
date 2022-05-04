@@ -1,7 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
    <head>
-      <title>CMS JEC+JER Viewer (v2.0, &beta;)</title>
+      <title>CMS JEC+JER Viewer (v2.0)</title>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+      <meta name="application-name" content="CMS JERC Viewer">
+      <meta name="author" content="Yi Chen">
+      <meta name="description" content="A simple-to-use viewer for browsing jet corrections and resolutions">
+      <meta name="keywords" content="CMS,Jet,JetMET,JME,Correction,JEC,Resolution,JER,Scale factor">
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap" rel="stylesheet">
@@ -10,36 +15,37 @@
       <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
       <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
       <link rel="manifest" href="icons/site.webmanifest">
-      <script type="text/javascript" src="jquery-3.5.1.min.js"></script>
+      <script src="jquery-3.5.1.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
-      <script type="text/javascript" src="html2canvas.min.js"></script>
-      <script type="text/javascript" src="flot/jquery.flot.min.js"></script>
-      <script type="text/javascript" src="flot/jquery.flot.navigate.min.js"></script>
-      <script type="text/javascript" src="flot/jquery.flot.errorbars.min.js"></script>
-      <script type="text/javascript" src="flot/jquery.flot.selection.min.js"></script>
-      <script type="text/javascript" src="flot/jquery.flot.crosshair.min.js"></script>
-      <script type="text/javascript" src="flot/jquery.flot.fillbetween.min.js"></script>
-      <script type="text/javascript" src="flot/jquery.flot.axislabels.js"></script>
-      <script type="text/javascript" src="flot/jquery.flot.log.js"></script>
+      <script src="html2canvas.min.js"></script>
+      <script src="flot/jquery.flot.min.js"></script>
+      <script src="flot/jquery.flot.navigate.min.js"></script>
+      <script src="flot/jquery.flot.errorbars.min.js"></script>
+      <script src="flot/jquery.flot.selection.min.js"></script>
+      <script src="flot/jquery.flot.crosshair.min.js"></script>
+      <script src="flot/jquery.flot.fillbetween.min.js"></script>
+      <script src="flot/jquery.flot.axislabels.js"></script>
+      <script src="flot/jquery.flot.log.js"></script>
       <link rel="stylesheet" type="text/css" href="style.css" />
-      <script type="text/javascript" src="Versions.js"></script>
-      <script type="text/javascript" src="DefaultData.js"></script>
-      <script type="text/javascript" src="defaults.js"></script>
-      <script type="text/javascript" src="JERC.js"></script>
+      <script src="Versions.js"></script>
+      <script src="DefaultData.js"></script>
+      <script src="defaults.js"></script>
+      <script src="JERC.js"></script>
    </head>
    <body>
       <!-- Icons are from https://feathericons.com/  Not sure if we need to credit somehow -->
       <!-- Probably OK as long as this is personal use? -->
       <div id="Page">
          <div id="Title">
-            CMS JEC+JER Viewer (v2.0, &beta;)
+            CMS <span class="JECSpan">JEC</span>+<span class="JERSpan">JER</span> Viewer (v2.0)
             <div class="AlignRightButton" id="InfoButton" title="Information"><a href="UpdateLog.html" target="_blank"></a></div>
-            <div class="AlignRightButton" id="ZoomOutButton" title="Reset zooming"></div>
-            <div class="AlignRightButton" id="DownloadButton" title="Download image"></div>
+            <div class="AlignRightButton" id="ZoomOutButton" title="Reset zooming" tabindex="0"></div>
+            <div class="AlignRightButton" id="DownloadButton" title="Download image" tabindex="0"></div>
          </div>
          <div id="ChartDivContainer">
-            <div id="ChartEmpty">Nothing selected</div>
+            <div id="ChartEmpty">Initializing viewer...</div>
             <div id="ChartDiv"></div>
+            <!-- <div id="ChartOverlay">Made with CMS <span class="JECSpan">JEC</span>+<span class="JERSpan">JER</span> Viewer</div> -->
          </div>
          <div class="Selector" id="SelectorN">
             Number of curves:
@@ -69,7 +75,7 @@
          </div>
          <div class="Filler"></div>
       </div>
-      <div id="Footer">CMS JEC+JER Viewer (v2.0) developed and maintained by <a href="http://yichen.me/" target="_blank">Yi Chen</a>.  Latest update: May 1, 2022.  See <a href="UpdateLog.html" target="_blank">update log</a> for latest updates</div>
+      <div id="Footer">CMS <span class="JECSpan">JEC</span>+<span class="JERSpan">JER</span> <a href="https://github.com/FHead/JECViewer" target="_blank">Viewer</a> (v2.0) developed and maintained by <a href="http://yichen.me/" target="_blank">Yi Chen</a>.  Latest update: May 1, 2022.  See <a href="UpdateLog.html" target="_blank">update log</a> for latest updates</div>
    </body>
 </html>
 

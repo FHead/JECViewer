@@ -51,7 +51,6 @@ table {
 
 div
 {
-   // border: 1px solid #000;
 }
 
 /* Real styles below */
@@ -67,7 +66,7 @@ body
    font-size: 13.5px;
    min-height: 98.5%;
    height: 98.5%;
-   font-weight: light;
+   font-weight: 300;
 }
 
 div
@@ -280,9 +279,6 @@ div#DownloadButton
 div#ZoomOutButton
 {
    right: 1.25em;
-   // background: url(icons/crosshair.svg);
-   // background: url(icons/globe.svg);
-   // background: url(icons/rotate-ccw.svg);
    background: url(icons/zoom-out.svg);
    background-size: contain;
 }
@@ -453,4 +449,31 @@ td.legendLabel
 {
    padding-right: 1.5em;
    padding-left: 1em;
+}
+
+td.legendLabel
+{
+   opacity: 0.5;
+}
+
+span.JECSpan
+{
+   color: #F9F;
+}
+
+span.JERSpan
+{
+   color: #9DF;
+}
+
+div#ChartOverlay
+{
+   display: inline;
+   position: absolute;
+   right: 25px;
+   top: 10px;
+   font-size: 1.0em;
+   font-weight: 300;
+   opacity: 0.75;
+   pointer-events: none;
 }

@@ -1,3 +1,11 @@
+/////////////////////////////////////////////////
+// JERC.js                                     //
+//                                             //
+// Original author: Yi Chen (http://yichen.me) //
+//                                             //
+// Main control code for JECViewer V2.X        //
+/////////////////////////////////////////////////
+
 var Chart;
 var Plot;
 var PlotData;
@@ -15,12 +23,37 @@ var AvailableListLock;
 var AvailableList = [];
 var InProgressList = [];
 
+function SortLevel(List)
+{
+   var LevelOrdering = ['L1FastJet', 'L2Relative', 'L3Absolute', 'L1L2L3', 'L2Residual', 'L3Residual', 'L2L3Residual', 'L1L2L3L2L3Res', 'Uncertainty', 'L1RC', 'JERSF', 'PtResolution', 'EtaResolution', 'PhiResolution'];
+
+   List.sort(function(a, b)
+   {
+      var ia = LevelOrdering.indexOf(a);
+      var ib = LevelOrdering.indexOf(b);
+
+      // if both in list, sort using list
+      if(ia >= 0 && ib >= 0)
+         return ia - ib;
+      // if only one in list, the one in list goes first
+      if(ia >= 0 && ib < 0)
+         return -1;
+      if(ia < 0 && ib >= 0)
+         return 1;
+      // if none in list, sort using name
+      return a.localeCompare(b);
+   });
+}
+
 function UniqueValues(List, Field, Item)
 {
    var Values = [];
    for(Index in List)
       Values.push(List[Index][Field]);
    Results = Values.filter(function(value, index, self) {return self.indexOf(value) == index;}).sort();
+
+   if(Field == "Level")
+      SortLevel(Results);
 
    CurrentValue = Item.val();
 
@@ -406,7 +439,7 @@ function UpdateCurves()
          datamin: XY.DataXMin, datamax: XY.DataXMax, mode: XY.XMode},
       yaxis:     {axisLabel: XY.Y, min: XY.YMin, max: XY.YMax,
          datamin: XY.DataYMin, datamax: XY.DataYMax, mode: XY.YMode},
-      grid:      {margin: 25, hoverable: true, clickable: true,
+      grid:      {margin: 25, hoverable: true, clickable: false,
          borderWidth: 1, borderColor: '#DDD', labelMargin: 10, axisMargin: 10,
          backgroundColor: '#FFF', autoHighlight: false},
       crosshair: {mode: "xy", color: "rgba(0,0,0,0.5)", lineWidth: 1},
@@ -538,7 +571,11 @@ function UpdateCurves()
       PlotOption.selection.mode = null;
    }
    Plot = $.plot("#ChartDiv", PlotData, PlotOption);
+   $('#ChartDiv').append('<div id="ChartOverlay">CMS <span class="JECSpan">JEC</span>+<span class="JERSpan">JER</span> Viewer</div>');
+   $('#ChartDiv > canvas').on('click', function(e){e.preventDefault();});
    
+   $('#ChartEmpty').html('Nothing selected');
+
    // if(PlotData.length == 0 && OldPlotDataLength == 0)
    // {
    //    $('#ChartDiv').stop().fadeOut(AnimationTime, function()
@@ -860,7 +897,6 @@ function LoadFromHash(HashString)
    }
    
    CurveUpdateLock = false;
-   CurveUpdateCheckLock = false;
    
    ShowHideSelector();
    UpdateCurves();
@@ -908,7 +944,6 @@ function LoadDefaultSetup()
    $('#LogY').addClass("On");
 
    CurveUpdateLock = false;
-   CurveUpdateCheckLock = false;
    
    ShowHideSelector();
    UpdateCurves();
@@ -1081,10 +1116,18 @@ function Initialize()
    $('#LogY').click(function(){$(this).toggleClass("On"); UpdateCurves(); UpdateHash();});
 
    $('#ChartDiv').bind("contextmenu", function(){ResetRange(); return false;});
-   $('#ZoomOutButton').click(function() {ResetRange();});
-
-   $('#DownloadButton').click(function(e)
+   $('#ZoomOutButton').on('click keydown', function(e)
    {
+      if(e.type == "keydown" && e.keyCode != 13)
+         return;
+      ResetRange();
+   });
+
+   $('#DownloadButton').on('click keydown', function(e)
+   {
+      if(e.type == "keydown" && e.keyCode != 13)
+         return;
+
       e.preventDefault();
       html2canvas($('#ChartDiv')[0],
       {
@@ -1093,8 +1136,8 @@ function Initialize()
          y: $('#ChartDiv').offset().top
       }).then(canvas =>
       {
-         console.log(canvas);
-         console.log(canvas.getAttribute('width'));
+         // console.log(canvas);
+         // console.log(canvas.getAttribute('width'));
          
          // document.body.appendChild(canvas);
          
