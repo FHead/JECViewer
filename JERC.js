@@ -139,6 +139,16 @@ function LevelChange(Index)      { SetListOfDependencies(Index); UpdateCurves();
 function DependencyChange(Index) { SetListOfSelections(Index);   UpdateCurves(); UpdateHash(); }
 function SelectionChange(Index)  {                               UpdateCurves(); UpdateHash(); }
 
+function CheckExist(Version, Algorithm)
+{
+   for(Index in Versions)
+   {
+      if(Versions[Index]["Version"] == Version && Versions[Index]["Algorithm"] == Algorithm)
+         return true;
+   }
+   return false;
+}
+
 function CheckAvailable(Version, Algorithm)
 {
    for(Index in AvailableList)
@@ -167,6 +177,8 @@ function SetSingleOption(Item, Value)
 
 function FetchVersion(Version, Algorithm)
 {
+   if(CheckExist(Version, Algorithm) == false)
+      return;
    if(CheckAvailable(Version, Algorithm) == true)
       return;
 
@@ -198,6 +210,8 @@ function FetchVersion(Version, Algorithm)
 
 function FetchVersionOnly(Version, Algorithm)
 {
+   if(CheckExist(Version, Algorithm) == false)
+      return;
    if(CheckAvailable(Version, Algorithm) == true)
       return;
 
@@ -794,6 +808,8 @@ function PreloadFromHash(HashString)
    {
       // console.log(Curves[i]);
       var Split = Curves[i].split(';');
+      if(Split[0] == 'null' || Split[1] == 'null')
+         continue;
       if(CheckAvailable(Split[0], Split[1]) == false)
          FetchVersionOnly(Split[0], Split[1]);
    }
