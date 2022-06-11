@@ -525,7 +525,7 @@ function UpdateCurves()
                         shadowSize: 0,
                         label: Label,
                         data: DataSeries});
-      else if(Item[0]["Mode"] == "JERSF")
+      else if(Item[0]["Mode"] == "JERSF" || Item[0]["Mode"] == "Errorbar")
       {
          PlotData.push({color: DefaultColors[Index],
                         lines: {show: true, lineWidth: 2, fill: false},
